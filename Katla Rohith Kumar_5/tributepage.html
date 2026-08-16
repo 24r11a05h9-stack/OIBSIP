@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ada Lovelace | Tribute</title>
+    <style>
+      :root {
+        --cream: #f7f1e3;
+        --gold: #d4a373;
+        --navy: #12213a;
+        --navy-soft: #1d3557;
+        --rose: #f6d5d5;
+        --text: #1f2937;
+        --muted: #4b5563;
+        --card: rgba(255, 255, 255, 0.72);
+        --shadow: rgba(18, 33, 58, 0.18);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: linear-gradient(180deg, var(--cream) 0%, #efe7db 100%);
+        color: var(--text);
+        line-height: 1.7;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: Georgia, "Times New Roman", serif;
+        margin-top: 0;
+        line-height: 1.2;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .container {
+        width: min(1100px, calc(100% - 2rem));
+        margin: 0 auto;
+      }
+
+      header {
+        background: linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
+        color: #fefefe;
+        padding: 2.5rem 0 1rem;
+      }
+
+      .header-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .brand {
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        opacity: 0.8;
+      }
+
+      nav {
+        display: flex;
+        gap: 1.2rem;
+        flex-wrap: wrap;
+      }
+
+      nav a {
+        color: #f5f5f5;
+        text-decoration: none;
+        font-size: 0.95rem;
+        opacity: 0.85;
+        transition: opacity 0.2s ease, color 0.2s ease;
+      }
+
+      nav a.active {
+        color: #ffd9a0;
+        opacity: 1;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .hero {
+        padding: 3.5rem 0 2.5rem;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        background: rgba(212, 163, 115, 0.18);
+        border: 1px solid rgba(212, 163, 115, 0.35);
+        color: #f7d7b4;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+        margin: 1rem 0 0.7rem;
+      }
+
+      .tagline {
+        font-size: 1.2rem;
+        color: #e8edf7;
+        margin-bottom: 1.4rem;
+      }
+
+      .hero-card {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 22px;
+        padding: 1.2rem;
+        backdrop-filter: blur(5px);
+      }
+
+      .hero-card img {
+        width: 100%;
+        height: 480px;
+        object-fit: cover;
+        border-radius: 18px;
+      }
+
+      section {
+        padding: 4rem 0;
+      }
+
+      .bio {
+        background: var(--rose);
+      }
+
+      .bio-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 2rem;
+        align-items: flex-start;
+      }
+
+      .bio-content {
+        background: rgba(255, 255, 255, 0.36);
+        border-radius: 22px;
+        padding: 2rem;
+        box-shadow: 0 15px 30px var(--shadow);
+      }
+
+      .bio-content p {
+        margin: 0 0 1rem;
+        color: var(--muted);
+      }
+
+      .bio-card {
+        background: linear-gradient(180deg, #fffaf5 0%, #f0ebe5 100%);
+        border-radius: 20px;
+        padding: 1.5rem;
+        box-shadow: 0 12px 28px rgba(18, 33, 58, 0.08);
+      }
+
+      .bio-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .bio-card ul {
+        margin: 0;
+        padding-left: 1.2rem;
+        color: var(--text);
+      }
+
+      .timeline {
+        background: #f0f4f8;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: clamp(2rem, 4vw, 3rem);
+      }
+
+      .timeline-list {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .timeline-item {
+        background: white;
+        border-left: 6px solid var(--gold);
+        border-radius: 18px;
+        padding: 1.4rem 1rem 1.2rem;
+        box-shadow: 0 10px 22px rgba(17, 24, 39, 0.06);
+      }
+
+      .year {
+        color: var(--navy);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+      }
+
+      .timeline-item p {
+        margin: 0.8rem 0 0;
+        color: var(--muted);
+      }
+
+      .quote-wrap {
+        background: linear-gradient(135deg, var(--navy) 0%, #1b2d4b 100%);
+        padding: 4rem 0;
+      }
+
+      .quote {
+        background: rgba(255, 255, 255, 0.08);
+        border-left: 5px solid var(--gold);
+        color: #f1f5f9;
+        padding: 2rem 2.2rem;
+        border-radius: 18px;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .quote p {
+        margin: 0;
+        font-size: clamp(1.2rem, 2vw, 1.8rem);
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.5;
+      }
+
+      footer {
+        background: #f5ede2;
+        color: var(--text);
+        text-align: center;
+        padding: 2rem 1rem;
+      }
+
+      @media (max-width: 860px) {
+        .hero-grid,
+        .bio-grid,
+        .timeline-list {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-card img {
+          height: auto;
+        }
+
+        .header-inner {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 520px) {
+        header {
+          padding-top: 1.75rem;
+        }
+
+        .hero {
+          padding-top: 2.5rem;
+        }
+
+        .bio-content,
+        .bio-card,
+        .quote {
+          padding: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container header-inner">
+        <div class="brand">In Memory of</div>
+        <nav aria-label="Main navigation">
+          <a href="#biography">Biography</a>
+          <a href="#timeline">Achievements</a>
+          <a href="#quote">Legacy</a>
+        </nav>
+      </div>
+
+      <div class="container hero">
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow">Visionary mathematician</span>
+            <h1>Ada Lovelace</h1>
+            <div class="tagline">The poetical scientist who imagined machines could do more than calculate.</div>
+          </div>
+
+          <div class="hero-card">
+            <img
+              src="https://images.unsplash.com/photo-1528747045269-390fe33c19f2?auto=format&fit=crop&w=900&q=80"
+              alt="Portrait-inspired artistic image related to Ada Lovelace"
+            />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="bio reveal" id="biography">
+        <div class="container bio-grid">
+          <div class="bio-content reveal">
+            <h2>Biography</h2>
+            <p>
+              Ada Lovelace was born in London in 1815, the daughter of the poet Lord Byron and Annabella Milbanke.
+              Her life was shaped by curiosity, a love of mathematics, and a remarkable ability to see beyond the tools of her time.
+              Although she died young at just 36, she had already become one of the most original thinkers in the early history of computing.
+            </p>
+            <p>
+              Lovelace first gained widespread attention for her notes on Charles Babbage’s Analytical Engine, the visionary mechanical design
+              often regarded as a predecessor of the modern computer. Her writings were not mere explanations; they were imaginative and deeply
+              analytical, showing a profound understanding of how machines could manipulate symbols, patterns, and logic.
+            </p>
+            <p>
+              What makes Lovelace especially memorable is her belief that machines could be used for far more than arithmetic. She imagined a future where
+              computational systems might create music, generate art, and extend human creativity. This insight was extraordinary for the 1800s and feels strikingly modern today.
+            </p>
+            <p>
+              Her work is now celebrated as a bridge between mathematics and imagination. She combined scientific discipline with visionary thinking,
+              proving that technological progress is not only about engineering but also about the ideas that shape what machines can become.
+            </p>
+          </div>
+
+          <aside class="bio-card">
+            <h3>Why she matters</h3>
+            <ul>
+              <li>Her notes on the Analytical Engine were far ahead of her era.</li>
+              <li>She explored the possibility of symbolic computation.</li>
+              <li>She linked scientific reasoning with creative possibility.</li>
+              <li>She is now recognized as an early pioneer of computer science.</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="timeline reveal" id="timeline">
+        <div class="container">
+          <h2 class="section-title">Key Achievements</h2>
+          <div class="timeline-list reveal">
+            <article class="timeline-item">
+              <div class="year">1833</div>
+              <p>Met Charles Babbage and became fascinated by the idea of programmable machines.</p>
+            </article>
+            <article class="timeline-item">
+              <div class="year">1843</div>
+              <p>Translated and expanded Luigi Menabrea’s paper, adding her famous notes on the Analytical Engine.</p>
+            </article>
+            <article class="timeline-item">
+              <div class="year">1843</div>
+              <p>Described how a machine could manipulate symbols and sequences, anticipating modern programming concepts.</p>
+            </article>
+            <article class="timeline-item">
+              <div class="year">Today</div>
+              <p>Her legacy lives on as a symbol of innovation, creativity, and the power of imagination in science.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="quote-wrap reveal" id="quote">
+        <div class="container">
+          <blockquote class="quote reveal">
+            <p>
+              “The Analytical Engine weaves algebraic patterns just as the Jacquard loom weaves flowers and leaves.”
+            </p>
+          </blockquote>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Built in honor of Ada Lovelace — a pioneer whose imagination helped define the future of computing.
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
