@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A simple client-side authentication demo.">
+  <title>Northstar | Secure access</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="brand-panel" aria-label="Northstar introduction">
+      <div class="brand-mark" aria-hidden="true">N</div>
+      <div class="brand-copy">
+        <p class="eyebrow">NORTHSTAR / AUTH-04</p>
+        <h1>Private space,<br><em>clear direction.</em></h1>
+        <p class="brand-description">A small, considered authentication system for the things worth keeping close.</p>
+      </div>
+      <div class="brand-footer">
+        <span class="status-dot"></span>
+        <span>Local session secure</span>
+      </div>
+    </section>
+
+    <section class="auth-panel">
+      <div class="panel-topline">
+        <span id="view-kicker">Welcome back</span>
+        <span class="mono-label">01 / 03</span>
+      </div>
+
+      <div id="login-view" class="view" data-view="login">
+        <div class="view-heading">
+          <p class="section-label">Sign in</p>
+          <h2>Good to see you.</h2>
+          <p>Enter your details to continue to your dashboard.</p>
+        </div>
+        <form id="login-form" novalidate>
+          <label for="login-identity">Username or email</label>
+          <input id="login-identity" name="identity" type="text" autocomplete="username" placeholder="you@example.com" required>
+          <label for="login-password">Password</label>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Your password" required>
+          <p id="login-message" class="form-message" role="alert" aria-live="polite"></p>
+          <button class="primary-button" type="submit">Login <span aria-hidden="true">&#8594;</span></button>
+        </form>
+        <p class="switch-prompt">New here? <button class="text-button" type="button" data-navigate="register">Create an account</button></p>
+      </div>
+
+      <div id="register-view" class="view hidden" data-view="register">
+        <div class="view-heading">
+          <p class="section-label">Create account</p>
+          <h2>Start somewhere good.</h2>
+          <p>Make a local account in less than a minute.</p>
+        </div>
+        <form id="register-form" novalidate>
+          <label for="register-username">Username</label>
+          <input id="register-username" name="username" type="text" autocomplete="username" placeholder="northstar" required>
+          <label for="register-email">Email</label>
+          <input id="register-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          <label for="register-password">Password</label>
+          <input id="register-password" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters" required>
+          <p class="password-hint">Use 8+ characters with at least one number.</p>
+          <p id="register-message" class="form-message" role="alert" aria-live="polite"></p>
+          <button class="primary-button" type="submit">Register <span aria-hidden="true">&#8594;</span></button>
+        </form>
+        <p class="switch-prompt">Already have an account? <button class="text-button" type="button" data-navigate="login">Back to login</button></p>
+      </div>
+
+      <div id="dashboard-view" class="view hidden" data-view="dashboard">
+        <div class="dashboard-header">
+          <div>
+            <p class="section-label">Dashboard</p>
+            <h2 id="dashboard-greeting">You are in.</h2>
+          </div>
+          <span class="secure-badge"><span class="status-dot"></span> Active</span>
+        </div>
+        <div class="welcome-note">
+          <span class="note-index">01</span>
+          <div>
+            <p class="note-title">Your private workspace</p>
+            <p class="note-copy">This protected view is available because your local session is active. Refresh the page to confirm it persists.</p>
+          </div>
+        </div>
+        <div class="dashboard-meta">
+          <div><span>Session</span><strong>Authenticated</strong></div>
+          <div><span>Storage</span><strong>Local device</strong></div>
+          <div><span>Password</span><strong>SHA-256 hash</strong></div>
+        </div>
+        <button id="logout-button" class="secondary-button" type="button">Log out <span aria-hidden="true">&#8599;</span></button>
+      </div>
+
+      <footer class="panel-footer">
+        <span>Client-side demo</span>
+        <span>v1.0.0</span>
+      </footer>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
